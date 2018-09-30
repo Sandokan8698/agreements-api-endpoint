@@ -18,7 +18,7 @@ public class Error implements BaseEntity {
         return id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "partner_id", nullable = false)
     private Partner partner;
 }

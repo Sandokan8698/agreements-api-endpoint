@@ -7,6 +7,7 @@ import javax.persistence.*;
 @IdClass(AddresesExternalContacstId.class)
 public class AddresesExternalContacts {
 
+
     @Id
     @ManyToOne
     @JoinColumn(name = "partner_id", referencedColumnName = "id")
@@ -23,4 +24,14 @@ public class AddresesExternalContacts {
     private Address address;
 
     private long account_id;
+
+    public AddresesExternalContacts() {
+    }
+
+    public AddresesExternalContacts(Partner partner, ExternalContact externalContact, Address address, long account_id) {
+        this.partner = partner;
+        this.externalContact = externalContact;
+        this.address = address;
+        this.account_id = account_id;
+    }
 }

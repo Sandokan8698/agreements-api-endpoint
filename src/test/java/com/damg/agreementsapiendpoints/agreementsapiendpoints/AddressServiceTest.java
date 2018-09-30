@@ -21,10 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import sun.rmi.runtime.Log;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
@@ -84,7 +81,10 @@ public class AddressServiceTest {
     public void assertCopyAddressIsWorking()
     {
         addressService.CopyAddress(oldAddress.getId(),oldAddress.getAccount_id(),partner2);
-        assertTrue(!partner2.getAddresses().isEmpty());
+
+        Optional<Partner> test = partnerDAO.findById(partner2.getId());
+
+        assertTrue(!test.get().getAddresses().isEmpty());
     }
 
     @After

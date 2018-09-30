@@ -30,7 +30,7 @@ public class Partner  implements BaseEntity {
     private int replace_with;
     private int account_id;
 
-    @OneToOne(cascade= CascadeType.REMOVE)
+    @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name="USER_ID")
     private User user;
 
@@ -52,7 +52,7 @@ public class Partner  implements BaseEntity {
     @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
     private Set<PartnersAgreementsAddresses> agreements;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,  mappedBy = "partner")
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
     private Set<Error> errors;
 
     @Temporal(TemporalType.TIMESTAMP)
