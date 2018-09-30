@@ -6,7 +6,12 @@ import java.util.Set;
 
 @Entity
 @Table(name="agreemnents")
-public class Agreement extends BaseEntity {
+public class Agreement implements BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected Long id;
 
     private int account_id;
     private Date agreement_start_date;
@@ -19,4 +24,8 @@ public class Agreement extends BaseEntity {
     private Set<AgreementType> agreementsTypes;
 
 
+    @Override
+    public Long getId() {
+        return id;
+    }
 }

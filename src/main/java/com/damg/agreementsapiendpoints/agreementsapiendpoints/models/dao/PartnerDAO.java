@@ -5,5 +5,5 @@ import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Par
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-public interface PartnerDAO extends JpaRepository<Partner, Long>, PartnerDAOCustom {
+public interface PartnerDAO extends CrudRepository<Partner, Long>, PartnerDAOCustom {
 }

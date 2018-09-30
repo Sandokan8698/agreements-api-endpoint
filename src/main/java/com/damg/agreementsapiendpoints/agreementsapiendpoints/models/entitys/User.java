@@ -2,15 +2,20 @@ package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils.Sexo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="users")
-public class User extends BaseEntity {
+public class User implements BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected Long id;
+
+    public Long getId() {
+        return id;
+    }
 
     private String sis_user_name;
     private String sis_user_first_name;
@@ -22,8 +27,8 @@ public class User extends BaseEntity {
     private Sexo sis_user_sex;
 
     public User(String name , String first_name) {
-        setSis_user_name("");
-        setSis_user_first_name("");
+        setSis_user_name(name);
+        setSis_user_first_name(first_name);
         setSis_user_last_name("");
         setSis_user_middle_name("");
         setSis_user_email("");
@@ -31,6 +36,9 @@ public class User extends BaseEntity {
         setSis_user_confidentiality_ind("");
     }
 
+    public User() {
+
+    }
 
     public String getSis_user_name() {
         return sis_user_name;

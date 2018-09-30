@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-@Transactional(readOnly = true)
 public class PartnerDAOImpl implements PartnerDAOCustom {
 
     private static final Logger LOGGER = Logger.getLogger(PartnerDAOCustom.class.getName());

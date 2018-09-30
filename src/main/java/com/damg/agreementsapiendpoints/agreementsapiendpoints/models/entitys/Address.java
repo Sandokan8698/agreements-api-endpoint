@@ -1,17 +1,26 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name="addreses")
-public class Address extends BaseEntity {
+public class Address implements BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected Long id;
 
     @OneToMany(fetch = FetchType.LAZY,  mappedBy = "address")
-    private Set<PartnerAddresses> partners;
+    private Set<PartnerAddresses> partners = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY,  mappedBy = "address")
-    private Set<PartnersAgreementsAddresses> agreements;
+    private Set<PartnersAgreementsAddresses> agreements = new HashSet<>();;
+
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "address")
+    private Set<AddresesExternalContacts> contacts = new HashSet<>();;
 
     private long account_id;
     private String city;
@@ -31,6 +40,7 @@ public class Address extends BaseEntity {
         this.city = city;
         this.state = state;
         this.country = country;
+
     }
 
     public Set<PartnerAddresses> getPartners() {
@@ -103,5 +113,10 @@ public class Address extends BaseEntity {
 
     public void setPrimary_address(String primary_address) {
         this.primary_address = primary_address;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 }

@@ -6,7 +6,17 @@ import java.util.Set;
 
 @Entity
 @Table(name="errors")
-public class Error extends BaseEntity {
+public class Error implements BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected Long id;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "partner_id", nullable = false)

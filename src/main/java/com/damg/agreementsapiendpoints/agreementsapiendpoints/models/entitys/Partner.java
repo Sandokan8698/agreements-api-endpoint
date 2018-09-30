@@ -8,9 +8,19 @@ import java.util.Set;
 
 @Entity
 @Table(name="partners")
-public class Partner extends BaseEntity {
+public class Partner  implements BaseEntity {
 
     //<editor-fold desc="Propertys">
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    protected Long id;
+
+    public Long getId() {
+        return id;
+    }
+
     private String institution_name;
     private String partner_description;
     private String partner_website_url;
@@ -20,26 +30,26 @@ public class Partner extends BaseEntity {
     private int replace_with;
     private int account_id;
 
-    @OneToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name="USER_ID", unique= true)
+    @OneToOne(cascade= CascadeType.REMOVE)
+    @JoinColumn(name="USER_ID")
     private User user;
 
     @OneToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name="CREATEDBY_ID", unique= true)
+    @JoinColumn(name="CREATEDBY_ID")
     private User created_by;
 
     @OneToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name="LASTUPDATEDBY_ID", unique= true)
+    @JoinColumn(name="LASTUPDATEDBY_ID")
     private User last_updated_by;
 
-    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "partner")
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
     private Set<PartnerAddresses> addresses = new HashSet<>();
 
     @OneToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name="PRIMARYADDRESS_ID", unique= true)
+    @JoinColumn(name="PRIMARYADDRESS_ID")
     private Address  primary_address;
 
-    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "partner")
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
     private Set<PartnersAgreementsAddresses> agreements;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,  mappedBy = "partner")
@@ -50,11 +60,20 @@ public class Partner extends BaseEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date_last_updated;
+
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
+    private Set<AddresesExternalContacts> contacts = new HashSet<>();
     //</editor-fold>
 
     //<editor-fold desc="Constructors">
     public Partner() {
     }
+
+    public Partner(User user, String partner_description) {
+        this.partner_description = partner_description;
+        this.user = user;
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Getters and Setters">
@@ -182,9 +201,24 @@ public class Partner extends BaseEntity {
         return agreements;
     }
 
+    public Set<PartnerAddresses> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<PartnerAddresses> addresses) {
+        this.addresses = addresses;
+    }
+
     public void setAgreements(Set<PartnersAgreementsAddresses> agreements) {
         this.agreements = agreements;
     }
 
-    //</editor-fold>
+    public Set<AddresesExternalContacts> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Set<AddresesExternalContacts> contacts) {
+        this.contacts = contacts;
+    }
+//</editor-fold>
 }

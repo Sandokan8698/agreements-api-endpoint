@@ -1,10 +1,16 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-public class ExternalContact extends BaseEntity {
+public class ExternalContact implements BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected Long id;
 
     private long account_id;
 
@@ -20,7 +26,12 @@ public class ExternalContact extends BaseEntity {
     private boolean archived;
 
 
-    private long partner_id;
-    private long address_id;
-    private long external_contact_id;
+
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "externalContact")
+    private Set<AddresesExternalContacts> contacts;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
@@ -37,7 +38,7 @@ public class AddressDAOTest {
     public void assertNotResultInPartner()
     {
 
-        Optional<Address> tetAddres = addressDAO.getAddressByAccountAndId( address.getId(),1l);
+        Set<Address> tetAddres = addressDAO.getAddressByAccountAndId( address.getId(),1l);
 
         assertTrue(tetAddres != null);
     }
