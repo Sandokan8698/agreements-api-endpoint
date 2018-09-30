@@ -1,6 +1,7 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "addresses_external_contacts")
@@ -33,5 +34,55 @@ public class AddresesExternalContacts {
         this.externalContact = externalContact;
         this.address = address;
         this.account_id = account_id;
+    }
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
+
+    public ExternalContact getExternalContact() {
+        return externalContact;
+    }
+
+    public void setExternalContact(ExternalContact externalContact) {
+        this.externalContact = externalContact;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public long getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(long account_id) {
+        this.account_id = account_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        AddresesExternalContacts that = (AddresesExternalContacts) o;
+        return Objects.equals(partner, that.partner) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(address, that.externalContact);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(partner, address,externalContact);
     }
 }

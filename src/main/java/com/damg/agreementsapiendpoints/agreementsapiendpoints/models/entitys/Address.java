@@ -11,8 +11,6 @@ import java.util.Set;
 @Table(name="addreses")
 public class Address extends BaseEntity {
 
-
-
     @NotNull
     private long account_id;
 
@@ -54,14 +52,6 @@ public class Address extends BaseEntity {
 
     }
 
-    public Set<PartnerAddresses> getPartners() {
-        return partners;
-    }
-
-    public void setPartners(PartnerAddresses partner) {
-        this.partners.add(partner);
-    }
-
     public void addPartner(Partner partner) {
         PartnerAddresses partnerAddresses = new PartnerAddresses(partner, this, account_id);
         partners.add(partnerAddresses);
@@ -83,15 +73,6 @@ public class Address extends BaseEntity {
         }
     }
 
-    public Set<PartnersAgreementsAddresses> getAgreements() {
-        return agreements;
-    }
-
-    public void setAgreements(PartnersAgreementsAddresses agreement) {
-        this.agreements.add(agreement);
-        agreement.setAddress(this);
-    }
-
     public long getAccount_id() {
         return account_id;
     }
@@ -104,48 +85,16 @@ public class Address extends BaseEntity {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getState() {
         return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
-    }
-
-    public float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getPrimary_address() {
-        return primary_address;
-    }
-
-    public void setPrimary_address(String primary_address) {
-        this.primary_address = primary_address;
+    public Set<AddresesExternalContacts> getContacts() {
+        return contacts;
     }
 
 }

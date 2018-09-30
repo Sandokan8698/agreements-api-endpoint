@@ -4,9 +4,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Query;
+import java.lang.reflect.Array;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.List;
 
 @Component
 public class PartnerQueryBuilder  {
@@ -46,10 +49,27 @@ public class PartnerQueryBuilder  {
     }
 
     private void checkForKeywords() {
+
         if (!StringUtils.isEmpty(this.filter.getKeywords())) {
 
+            String[] list_keywords =  this.filter.getKeywords().split("(\\+)+|(\\s+)");
+            List<String> search_fields = Arrays.asList("institution_name","partner_website_url","addr.city","addr.state","addr.country");
+
+            if (list_keywords.length > 0){
+                this.sql_where_keyword += " AND ( 1 = 0 ";
+
+                for (String keyword: list_keywords ) {
+
+                    for (String search_field:search_fields ) {
+
+                        this.sql_where_keyword += " OR LOWER("+ search_field +") LIKE " + keyword;
+                    }
+
+                }
+            }
+
 /*
-            String[] list_keywords =  this.filter.getKeywords().split('(\+)+|(\s)+)');
+            ;
             if( list_keywords.length > 0) {
                  this.sql_where_keyword += " AND ( 1 = 0 ";
 
