@@ -1,25 +1,22 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name="agreemntes_types")
-public class AgreementType implements BaseEntity {
+public class AgreementType extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    protected Long id;
 
+    @NotNull
+    @Size(max = 250)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "agreementsTypes")
-    private Set<Agreement> agreements;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "agreementsTypes")
+    private Set<Agreement> agreements = new HashSet<>();
 
-    @Override
-    public Long getId() {
-        return id;
-    }
+
 }

@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class PartnerQueryBuilder  {
 
     private PartnerQueryFilter filter;
-    protected ComplexQuery query;
+
 
     private String sql_select_partner_description = "";
     private String sql_where_agreement_type_id = "";
@@ -261,7 +261,6 @@ public class PartnerQueryBuilder  {
        return sqlCountCommand;
 
     }
-
 
     public String builDebugCommand(PartnerQueryFilter pFilter) {
 

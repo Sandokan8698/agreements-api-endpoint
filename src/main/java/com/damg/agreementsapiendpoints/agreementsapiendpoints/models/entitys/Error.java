@@ -1,12 +1,10 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="errors")
-public class Error implements BaseEntity {
+public class Error implements IBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

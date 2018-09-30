@@ -2,7 +2,7 @@ package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils;
 
 import java.util.Date;
 
-public class PartnerQueryFilter extends QueryFilter {
+public class PartnerQueryFilter {
 
     private int account_id;
     private int startRow = 0;

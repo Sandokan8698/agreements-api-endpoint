@@ -24,4 +24,47 @@ public class PartnersAgreementsAddresses {
     private Address address;
 
     private long account_id;
+
+
+    public PartnersAgreementsAddresses() {
+    }
+
+    public PartnersAgreementsAddresses(Partner partner, Agreement agreement, Address address, long account_id) {
+        this.partner = partner;
+        this.agreement = agreement;
+        this.address = address;
+        this.account_id = account_id;
+    }
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
+
+    public Agreement getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(Agreement agreement) {
+        this.agreement = agreement;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public long getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(long account_id) {
+        this.account_id = account_id;
+    }
 }

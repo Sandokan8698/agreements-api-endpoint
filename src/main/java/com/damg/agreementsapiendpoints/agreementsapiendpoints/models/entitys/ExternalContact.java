@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-public class ExternalContact implements BaseEntity {
+public class ExternalContact implements IBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

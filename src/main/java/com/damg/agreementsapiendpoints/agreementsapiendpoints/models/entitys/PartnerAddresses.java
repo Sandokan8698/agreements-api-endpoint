@@ -2,6 +2,7 @@ package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "partners_addresses")
@@ -52,5 +53,23 @@ public class PartnerAddresses {
 
     public void setAccount_id(long account_id) {
         this.account_id = account_id;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        PartnerAddresses that = (PartnerAddresses) o;
+        return Objects.equals(partner, that.partner) &&
+                Objects.equals(address, that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(partner, address);
     }
 }

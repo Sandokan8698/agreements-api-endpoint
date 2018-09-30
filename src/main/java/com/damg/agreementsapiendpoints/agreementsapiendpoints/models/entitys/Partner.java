@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="partners")
-public class Partner  implements BaseEntity {
+public class Partner  implements IBaseEntity {
 
     //<editor-fold desc="Propertys">
 
@@ -21,14 +21,14 @@ public class Partner  implements BaseEntity {
         return id;
     }
 
-    private String institution_name;
-    private String partner_description;
-    private String partner_website_url;
-    private int total_partners_count;
-    private boolean archived;
-    private boolean is_dirty;
-    private int replace_with;
-    private int account_id;
+    private String institution_name = "";
+    private String partner_description = "";
+    private String partner_website_url = "";
+    private int total_partners_count = 0;
+    private boolean archived = false;
+    private boolean is_dirty = false;
+    private int replace_with = 0;
+    private int account_id = 0;
 
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name="USER_ID")
@@ -42,7 +42,7 @@ public class Partner  implements BaseEntity {
     @JoinColumn(name="LASTUPDATEDBY_ID")
     private User last_updated_by;
 
-    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner", orphanRemoval = true)
     private Set<PartnerAddresses> addresses = new HashSet<>();
 
     @OneToOne(cascade= CascadeType.ALL)
@@ -67,6 +67,8 @@ public class Partner  implements BaseEntity {
 
     //<editor-fold desc="Constructors">
     public Partner() {
+
+
     }
 
     public Partner(User user, String partner_description) {
