@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_tbl")
+@Table(name="users")
 public class User extends BaseEntity {
 
 

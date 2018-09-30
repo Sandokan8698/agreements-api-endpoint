@@ -1,18 +1,19 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 public abstract class QueryBuilder {
 
-    protected QueryFilter filter;
-    protected Query query;
+    protected ComplexQuery query;
 
+    protected abstract ComplexQuery buildQuery();
+    protected abstract void setFilter(QueryFilter pFilter);
 
-    protected abstract Query BuildQuery();
-
-    public Query GetComplexQuery(QueryFilter pFilter)
+    public ComplexQuery GetComplexQuery(QueryFilter pFilter)
     {
-        this.filter = pFilter;
-        return BuildQuery();
+        query = new ComplexQuery();
+        this.setFilter(pFilter);
+        return buildQuery();
     }
 }

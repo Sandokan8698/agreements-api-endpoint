@@ -1,10 +1,7 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.Repositorys.Implementation;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.Repositorys.Interfaces.PartnerDAOCustom;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Partner;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils.PartnerQueryBuilder;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils.PartnerQueryFilter;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils.QueryBuilderFactory;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils.QueryBuilderType;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,16 +22,30 @@ public class PartnerDAOImpl implements PartnerDAOCustom {
     EntityManager entityManager;
 
     @Autowired
-    private QueryBuilderFactory builderFactory;
+    private PartnerQueryBuilder partnerQueryBuilder;
 
     @Override
     public List<Partner> getPartnersList(PartnerQueryFilter filter) {
 
-        LOGGER.info("Logger Name: "+LOGGER.getName());
+        String sqlCommnand = partnerQueryBuilder.buildSqlCommand(filter);
+        Query query = entityManager.createNativeQuery(sqlCommnand);
 
-        PartnerQueryBuilder partnerQueryBuilder = (PartnerQueryBuilder) builderFactory.createBuilder(QueryBuilderType.PartnerBuilder);
+        return  query.getResultList();
+    }
 
-        Query query = entityManager.createNativeQuery(partnerQueryBuilder.GetComplexQuery(filter).toString());
+    @Override
+    public int getTotalPartners(PartnerQueryFilter filter) {
+
+        String sqlCommnand = partnerQueryBuilder.buildCountCommand(filter);
+        Query query = entityManager.createNativeQuery(sqlCommnand);
+        return  query.getFirstResult();
+    }
+
+    @Override
+    public List<Partner> getDebugPartnerList(PartnerQueryFilter filter) {
+
+        String sqlCommnand = partnerQueryBuilder.builDebugCommand(filter);
+        Query query = entityManager.createNativeQuery(sqlCommnand);
 
         return  query.getResultList();
     }

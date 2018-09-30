@@ -14,9 +14,11 @@ public class QueryBuilderFactory {
 
     public QueryBuilder createBuilder(QueryBuilderType builderType)
     {
-        switch (builderType) {
+        /*switch (builderType) {
             default:
                return partnerQueryBuilder;
-        }
+        }*/
+
+        return  null;
     }
 }

@@ -8,4 +8,6 @@ import java.util.List;
 public interface PartnerDAOCustom {
 
     List<Partner> getPartnersList(PartnerQueryFilter filter);
+    int getTotalPartners(PartnerQueryFilter filter);
+    List<Partner> getDebugPartnerList(PartnerQueryFilter filter);
 }

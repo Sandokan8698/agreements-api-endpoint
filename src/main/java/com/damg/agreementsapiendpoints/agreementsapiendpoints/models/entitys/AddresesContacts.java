@@ -1,9 +1,12 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 import javax.persistence.Entity;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="accounts")
-public class Account extends BaseEntity {
+@Table(name = "partners_addresses")
+@IdClass(AddresesContacts.class)
+public class AddresesContacts {
+
 }

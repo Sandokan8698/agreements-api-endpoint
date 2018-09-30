@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="partners_tbl")
+@Table(name="partners")
 public class Partner extends BaseEntity {
 
     //<editor-fold desc="Propertys">
@@ -18,6 +18,7 @@ public class Partner extends BaseEntity {
     private boolean archived;
     private boolean is_dirty;
     private int replace_with;
+    private int account_id;
 
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name="USER_ID", unique= true)
@@ -31,16 +32,15 @@ public class Partner extends BaseEntity {
     @JoinColumn(name="LASTUPDATEDBY_ID", unique= true)
     private User last_updated_by;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "partner_addresses", joinColumns = { @JoinColumn(name = "parter_id") }, inverseJoinColumns = { @JoinColumn(name = "address_id") })
-    private Set<Address> addresses = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "partner")
+    private Set<PartnerAddresses> addresses = new HashSet<>();
 
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name="PRIMARYADDRESS_ID", unique= true)
     private Address  primary_address;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,  mappedBy = "partner")
-    private Set<Agreement> agreements = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "partner")
+    private Set<PartnersAgreementsAddresses> agreements;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,  mappedBy = "partner")
     private Set<Error> errors;
@@ -138,28 +138,12 @@ public class Partner extends BaseEntity {
         this.last_updated_by = last_updated_by;
     }
 
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
-    }
-
     public Address getPrimary_address() {
         return primary_address;
     }
 
     public void setPrimary_address(Address primary_address) {
         this.primary_address = primary_address;
-    }
-
-    public Set<Agreement> getAgreements() {
-        return agreements;
-    }
-
-    public void setAgreements(Set<Agreement> agreements) {
-        this.agreements = agreements;
     }
 
     public Set<Error> getErrors() {
@@ -185,5 +169,22 @@ public class Partner extends BaseEntity {
     public void setDate_last_updated(Date date_last_updated) {
         this.date_last_updated = date_last_updated;
     }
+
+    public int getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
+    }
+
+    public Set<PartnersAgreementsAddresses> getAgreements() {
+        return agreements;
+    }
+
+    public void setAgreements(Set<PartnersAgreementsAddresses> agreements) {
+        this.agreements = agreements;
+    }
+
     //</editor-fold>
 }

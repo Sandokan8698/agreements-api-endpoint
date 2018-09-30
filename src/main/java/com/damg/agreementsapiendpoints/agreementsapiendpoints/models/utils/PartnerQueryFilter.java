@@ -11,7 +11,7 @@ public class PartnerQueryFilter extends QueryFilter {
     private final String order_by = "institution_name ASC";
     private String status;
     private String keyword_search;
-    private String agreement_type_id;
+    private int agreement_type_id;
     private String country;
     boolean public_view = true;
     private String keywords;
@@ -72,11 +72,11 @@ public class PartnerQueryFilter extends QueryFilter {
         this.keyword_search = keyword_search;
     }
 
-    public String getAgreement_type_id() {
+    public int getAgreement_type_id() {
         return agreement_type_id;
     }
 
-    public void setAgreement_type_id(String agreement_type_id) {
+    public void setAgreement_type_id(int agreement_type_id) {
         this.agreement_type_id = agreement_type_id;
     }
 

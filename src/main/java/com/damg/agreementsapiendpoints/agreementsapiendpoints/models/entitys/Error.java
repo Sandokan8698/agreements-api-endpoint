@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name="errors")
 public class Error extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
