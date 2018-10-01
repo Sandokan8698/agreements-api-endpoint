@@ -1,7 +1,7 @@
-package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services;
+package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.services;
 
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.ExternalConctactDAO;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.*;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

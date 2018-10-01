@@ -1,13 +1,12 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints;
 
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services.AddressService;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services.ExternalContactService;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.services.ExternalContactService;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.AddressDAO;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.ExternalConctactDAO;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.PartnerDAO;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Address;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.ExternalContact;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Partner;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Address;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.ExternalContact;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Partner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,6 +54,7 @@ public class ExternalContactTest {
         oldExternalContact = externalConctactDAO.save(oldExternalContact);
 
         partner1.addExternalConctacts(oldExternalContact,address);
+        partnerDAO.save(partner1);
 
 
     }

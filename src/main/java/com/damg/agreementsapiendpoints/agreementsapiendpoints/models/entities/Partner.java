@@ -1,10 +1,8 @@
-package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
+package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

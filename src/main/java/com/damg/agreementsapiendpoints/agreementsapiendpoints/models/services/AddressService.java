@@ -1,8 +1,8 @@
-package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services;
+package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.services;
 
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.AddressDAO;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Address;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Partner;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Address;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Partner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

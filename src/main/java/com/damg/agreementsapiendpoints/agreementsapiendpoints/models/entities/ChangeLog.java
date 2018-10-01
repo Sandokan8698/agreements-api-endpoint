@@ -1,6 +1,4 @@
-package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
-
-import com.fasterxml.jackson.databind.ser.Serializers;
+package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities;
 
 import javax.persistence.*;
 import java.util.Date;

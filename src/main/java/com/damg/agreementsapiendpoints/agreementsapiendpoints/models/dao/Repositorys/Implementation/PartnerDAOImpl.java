@@ -1,10 +1,9 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.Repositorys.Implementation;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.Repositorys.Interfaces.PartnerDAOCustom;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Partner;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Partner;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,9 +1,7 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao;
 
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.Repositorys.Interfaces.PartnerDAOCustom;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.ExternalContact;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Partner;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Partner;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

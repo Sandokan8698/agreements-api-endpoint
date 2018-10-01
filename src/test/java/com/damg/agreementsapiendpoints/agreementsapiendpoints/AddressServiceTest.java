@@ -1,10 +1,10 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints;
 
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services.AddressService;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.services.AddressService;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.AddressDAO;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.PartnerDAO;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Address;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Partner;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Address;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Partner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

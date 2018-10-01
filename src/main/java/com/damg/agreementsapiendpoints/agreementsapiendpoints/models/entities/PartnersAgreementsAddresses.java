@@ -1,4 +1,4 @@
-package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
+package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
