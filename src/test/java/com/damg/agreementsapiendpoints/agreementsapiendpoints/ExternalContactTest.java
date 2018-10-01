@@ -55,7 +55,7 @@ public class ExternalContactTest {
         oldExternalContact = externalConctactDAO.save(oldExternalContact);
 
         partner1.addExternalConctacts(oldExternalContact,address);
-        partnerDAO.save(partner1);
+
 
     }
 
@@ -64,7 +64,7 @@ public class ExternalContactTest {
     {
         assertTrue(partnerDAO.findById(partner2.getId()).get().getContacts().isEmpty());
 
-        externalContactService.CopyExternalContact(1,1,partner2,address);
+        externalContactService.CopyExternalContact(oldExternalContact.getId(),oldExternalContact.getAccount_id(),partner2,address);
 
         assertTrue(!partnerDAO.findById(partner2.getId()).get().getContacts().isEmpty());
 
