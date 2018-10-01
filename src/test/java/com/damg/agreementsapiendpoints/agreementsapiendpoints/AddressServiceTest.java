@@ -1,7 +1,6 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints;
 
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services.AddressService;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services.PartnerService;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.AddressDAO;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.PartnerDAO;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Address;
