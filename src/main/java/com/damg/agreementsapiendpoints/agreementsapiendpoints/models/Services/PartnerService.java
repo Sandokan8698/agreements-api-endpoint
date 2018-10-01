@@ -23,7 +23,7 @@ public class PartnerService {
         Set<Partner> partners = partnerDAO.getParnerByAccountAndId(partnerId,accountId);
 
         partners.forEach(a -> {
-            Partner newPartner = new Partner(a.getUser(),a.getPartner_description());
+            Partner newPartner = new Partner( a.getInstitution_name(),a.getPartner_description(),a.getPartner_website_url(),a.getAccount_id());
             partnerDAO.save(newPartner);
         });
 

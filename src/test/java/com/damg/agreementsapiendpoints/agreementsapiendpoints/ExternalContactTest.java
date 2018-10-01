@@ -1,10 +1,12 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints;
 
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services.AddressService;
-import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services.PartnerService;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.Services.ExternalContactService;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.AddressDAO;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.ExternalConctactDAO;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.dao.PartnerDAO;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Address;
+import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.ExternalContact;
 import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys.Partner;
 import org.junit.After;
 import org.junit.Before;
@@ -14,14 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AddressServiceTest {
+public class ExternalContactTest {
 
     @Autowired
-    private AddressService addressService;
+    private ExternalContactService externalContactService;
+
+    @Autowired
+    private ExternalConctactDAO externalConctactDAO;
 
     @Autowired
     private AddressDAO addressDAO;
@@ -31,35 +35,38 @@ public class AddressServiceTest {
 
     private Partner partner1;
     private Partner partner2;
-    private Address oldAddress;
+    private Address address;
+    private ExternalContact oldExternalContact;
 
 
     @Before
     public void setUp() throws Exception {
 
         partner1 = new Partner("some institution","some description","some url",1);
-        partner2 = new Partner("some institution2","some description2","some url2",2);
-
         partnerDAO.save(partner1);
+
+        partner2 = new Partner("some institution2","some description2","some url2",2);
         partnerDAO.save(partner2);
 
-        oldAddress = new Address(1,"Guayas","Guayaquil","Ecuador");
-        oldAddress = addressDAO.save(oldAddress);
+        address = new Address(1,"Guayas","Guayaquil","Ecuador");
+        address = addressDAO.save(address);
 
-        oldAddress.addPartner(partner1);
-        addressDAO.save(oldAddress);
+        oldExternalContact = new ExternalContact(1,"some name","some lastname");
+        oldExternalContact = externalConctactDAO.save(oldExternalContact);
 
+        partner1.addExternalConctacts(oldExternalContact,address);
+        partnerDAO.save(partner1);
 
     }
 
     @Test
-    public void assertCopyAddressIsWorking()
+    public void assertCopyExternalContactIsWorking()
     {
-        assertTrue(partnerDAO.findById(partner2.getId()).get().getAddresses().isEmpty());
+        assertTrue(partnerDAO.findById(partner2.getId()).get().getContacts().isEmpty());
 
-        addressService.CopyAddress(oldAddress.getId(),oldAddress.getAccount_id(),partner2);
+        externalContactService.CopyExternalContact(1,1,partner2,address);
 
-        assertTrue(!partnerDAO.findById(partner2.getId()).get().getAddresses().isEmpty());
+        assertTrue(!partnerDAO.findById(partner2.getId()).get().getContacts().isEmpty());
 
     }
 
@@ -69,4 +76,5 @@ public class AddressServiceTest {
         addressDAO.deleteAll();
         partnerDAO.deleteAll();
     }
+
 }

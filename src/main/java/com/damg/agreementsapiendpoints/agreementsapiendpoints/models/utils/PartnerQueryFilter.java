@@ -1,5 +1,6 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PartnerQueryFilter {
@@ -21,6 +22,16 @@ public class PartnerQueryFilter {
     private Date date_start;
     private Date date_end;
     private int partner_id;
+
+    private String[] search_fields =  {};
+
+    public String[] getSearch_fields() {
+        return search_fields;
+    }
+
+    public void setSearch_fields(String[] search_fields) {
+        this.search_fields = search_fields;
+    }
 
     public int getAccount_id() {
         return account_id;

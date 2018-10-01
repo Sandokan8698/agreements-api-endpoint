@@ -17,7 +17,7 @@ public class PartnerQueryBuilderTest {
 
     @Autowired
     private PartnerQueryBuilder partnerQueryBuilder;
-    PartnerQueryFilter filter;
+    private PartnerQueryFilter filter;
 
 
     @Before
@@ -26,16 +26,17 @@ public class PartnerQueryBuilderTest {
        filter = new PartnerQueryFilter();
        filter.setAccount_id(1);
        filter.setAgreement_type_id(1);
-
+       filter.setKeyword_search("hola abdel");
+       filter.setSearch_fields(new String[] {"institution_name","partner_website_url","addr.city","addr.state","addr.country"});
     }
 
     @Test
     public void assertAccountIdIsSet(){
-       assertTrue(partnerQueryBuilder.buildSqlCommand(filter).contains("ptr.account_id = 1"));
+       assertTrue(partnerQueryBuilder.buildSqlCommand(filter).contains("ptr.account_id =1"));
     }
 
     @Test
     public void assertAgreementTypeIdIsSet(){
-        assertTrue(partnerQueryBuilder.buildSqlCommand(filter).contains("AND agr_xref.agreement_type_id IN(:agreement_type_id)"));
+        assertTrue(partnerQueryBuilder.buildSqlCommand(filter).contains("AND agr_xref.agreement_type_id IN(1)"));
     }
 }

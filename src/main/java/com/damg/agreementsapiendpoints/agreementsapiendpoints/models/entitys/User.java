@@ -6,16 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="users")
-public class User implements IBaseEntity {
+public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    protected Long id;
-
-    public Long getId() {
-        return id;
-    }
 
     private String sis_user_name;
     private String sis_user_first_name;

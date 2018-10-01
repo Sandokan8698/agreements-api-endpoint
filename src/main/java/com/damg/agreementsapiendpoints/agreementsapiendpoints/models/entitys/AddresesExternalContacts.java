@@ -1,27 +1,33 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "addresses_external_contacts")
-@IdClass(AddresesExternalContacstId.class)
+@IdClass(AddresesExternalContactsId.class)
 public class AddresesExternalContacts {
 
 
     @Id
     @ManyToOne
     @JoinColumn(name = "partner_id", referencedColumnName = "id")
+    @NotFound(action = NotFoundAction.IGNORE)
     private Partner partner;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "external_contact_id", referencedColumnName = "id")
+    @NotFound(action = NotFoundAction.IGNORE)
     private ExternalContact externalContact;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @NotFound(action = NotFoundAction.IGNORE)
     private Address address;
 
     private long account_id;

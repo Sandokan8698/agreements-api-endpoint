@@ -2,13 +2,7 @@ package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.utils;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
-import javax.persistence.Query;
-import java.lang.reflect.Array;
-import java.text.MessageFormat;
 import java.util.Arrays;
-import java.util.Formatter;
-import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -16,11 +10,8 @@ public class PartnerQueryBuilder  {
 
     private PartnerQueryFilter filter;
 
-
-    private String sql_select_partner_description = "";
     private String sql_where_agreement_type_id = "";
     private String sql_where_country = "";
-
     private String sql_where_keyword = "";
     private String sql_where_agreement_id = "";
     private String sql_where_is_published = "";
@@ -28,13 +19,6 @@ public class PartnerQueryBuilder  {
     private String sql_where_date_last_updated = "";
     private String sql_where_partner_id = "";
 
-
-    private void checkForPublicView()  {
-        if (this.filter.isPublic_view())
-        {
-           this.sql_select_partner_description = ", ptr.partner_description";
-        }
-    }
 
     private void checkForAgreemenTypeId()  {
         if(this.filter.getAgreement_type_id() > 0) {
@@ -50,36 +34,22 @@ public class PartnerQueryBuilder  {
 
     private void checkForKeywords() {
 
-        if (!StringUtils.isEmpty(this.filter.getKeywords())) {
+        if (!StringUtils.isEmpty(this.filter.getKeyword_search())) {
 
-            String[] list_keywords =  this.filter.getKeywords().split("(\\+)+|(\\s+)");
-            List<String> search_fields = Arrays.asList("institution_name","partner_website_url","addr.city","addr.state","addr.country");
+            String[] list_keywords =  this.filter.getKeyword_search().split("(\\+)+|(\\s+)");
+            List<String> search_fields = Arrays.asList();
 
             if (list_keywords.length > 0){
                 this.sql_where_keyword += " AND ( 1 = 0 ";
 
                 for (String keyword: list_keywords ) {
-
-                    for (String search_field:search_fields ) {
-
-                        this.sql_where_keyword += " OR LOWER("+ search_field +") LIKE " + keyword;
+                    for (String search_field: this.filter.getSearch_fields() ) {
+                        this.sql_where_keyword += " OR LOWER("+ search_field +") LIKE '" + keyword  +"' ";
                     }
-
                 }
+
+                this.sql_where_keyword += ")";
             }
-
-/*
-            ;
-            if( list_keywords.length > 0) {
-                 this.sql_where_keyword += " AND ( 1 = 0 ";
-
-                 String list_searchFields = "institution_name,partner_website_url,addr.city,addr.state,addr.country";
-
-                for (String keyword : list_keywords) {
-                }
-
-                 sql_where_keyword += ")";
-            } */
 
         }
     }
@@ -128,7 +98,6 @@ public class PartnerQueryBuilder  {
 
         this.filter = pFilter;
 
-        checkForPublicView();
         checkForAgreemenTypeId();
         checkForCountry();
         checkForKeywords();
@@ -144,7 +113,7 @@ public class PartnerQueryBuilder  {
 
         buildQuery(pFilter);
 
-        String sqlDataCommand = "WITH\n" +
+        return  "WITH\n" +
                 "\t\t\t\t\tpartner_list (\n" +
                 "\t\t\t\t\t\taccount_id,\n" +
                 "\t\t\t\t\t\tpartner_id,\n" +
@@ -243,16 +212,13 @@ public class PartnerQueryBuilder  {
                 "\t\t\t\t\taddr.primary_address = 1\n" +
                 "\t\t\t\t\t ORDER BY institution_name ASC";
 
-
-       return sqlDataCommand;
-
     }
 
     public String buildCountCommand(PartnerQueryFilter pFilter) {
 
         buildQuery(pFilter);
 
-        String sqlCountCommand ="SELECT COUNT(DISTINCT ptr.id) AS total_partners_count\n" +
+        return  "SELECT COUNT(DISTINCT ptr.id) AS total_partners_count\n" +
                 "\t\t\t\tFROM partners ptr\n" +
                 "\t\t\t\tJOIN partners_agreements xref\n" +
                 "\t\t\t\tON       ptr.account_id = xref.account_id\n" +
@@ -278,15 +244,13 @@ public class PartnerQueryBuilder  {
                 "\t\t\t\t\t\t" + this.sql_where_is_published + "\n";
 
 
-       return sqlCountCommand;
-
     }
 
     public String builDebugCommand(PartnerQueryFilter pFilter) {
 
         buildQuery(pFilter);
 
-        String sqlDebugCommand ="SELECT DISTINCT\n" +
+        return "SELECT DISTINCT\n" +
                 "\t\t\t\t\tptr.account_id,\n" +
                 "\t\t\t\t\tptr.id,\n" +
                 "\t\t\t\t\tptr.institution_name,\n" +
@@ -317,9 +281,6 @@ public class PartnerQueryBuilder  {
                 "\t\t\t\t\t\t" + this.sql_where_partner_id + "\n" +
                 "\t\t\t\t\t\t" + this.sql_where_agreement_id + "\n" +
                 "\t\t\t\t\t\t" + this.sql_where_is_published + "\n";
-
-
-        return sqlDebugCommand;
 
     }
 

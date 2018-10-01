@@ -1,6 +1,7 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -66,5 +67,24 @@ public class PartnersAgreementsAddresses {
 
     public void setAccount_id(long account_id) {
         this.account_id = account_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        PartnersAgreementsAddresses that = (PartnersAgreementsAddresses) o;
+        return Objects.equals(partner, that.partner) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(agreement, that.agreement)
+                ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(partner, address, agreement);
     }
 }

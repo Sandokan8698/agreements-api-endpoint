@@ -4,12 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="errors")
-public class Error implements IBaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    protected Long id;
+public class Error extends BaseEntity {
 
     @Override
     public Long getId() {

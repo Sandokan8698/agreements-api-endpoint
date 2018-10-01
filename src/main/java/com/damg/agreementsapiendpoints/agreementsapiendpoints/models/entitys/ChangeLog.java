@@ -1,16 +1,14 @@
 package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name="change_logs")
-public class ChangeLog {
+public class ChangeLog extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    protected Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "current_user_id")
@@ -36,8 +34,6 @@ public class ChangeLog {
 
     public ChangeLog() {
     }
-
-
 
     public ChangeLog(String log_details, String log_summary, Date date_created, long account_id, User created_by) {
         this.log_details = log_details;

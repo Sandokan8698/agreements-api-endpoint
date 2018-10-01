@@ -6,10 +6,10 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 @Entity
+@Table(name="external_contact")
 public class ExternalContact extends BaseEntity {
 
 
@@ -86,4 +86,11 @@ public class ExternalContact extends BaseEntity {
         return last_name;
     }
 
+    public Set<AddresesExternalContacts> getAddreses() {
+        return addreses;
+    }
+
+    public void setAddreses(Set<AddresesExternalContacts> addreses) {
+        this.addreses = addreses;
+    }
 }

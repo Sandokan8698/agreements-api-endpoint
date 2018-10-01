@@ -2,26 +2,21 @@ package com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entitys;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name="partners")
-public class Partner  implements IBaseEntity {
+public class Partner  extends BaseEntity {
 
     //<editor-fold desc="Propertys">
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    protected Long id;
-
-    public Long getId() {
-        return id;
-    }
-
+    @Size(max = 250)
     private String institution_name = "";
+
     private String partner_description = "";
     private String partner_website_url = "";
     private int total_partners_count = 0;
@@ -34,11 +29,11 @@ public class Partner  implements IBaseEntity {
     @JoinColumn(name="USER_ID")
     private User user;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne(cascade= CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="CREATEDBY_ID")
     private User created_by;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne(cascade= CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="LASTUPDATEDBY_ID")
     private User last_updated_by;
 
@@ -49,31 +44,33 @@ public class Partner  implements IBaseEntity {
     @JoinColumn(name="PRIMARYADDRESS_ID")
     private Address  primary_address;
 
-    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner", orphanRemoval = true)
     private Set<PartnersAgreementsAddresses> agreements;
 
-    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner", orphanRemoval = true)
     private Set<Error> errors;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date date_created;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date date_last_updated;
 
-    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner")
+    @OneToMany(fetch = FetchType.EAGER,  mappedBy = "partner", orphanRemoval = true)
     private Set<AddresesExternalContacts> contacts = new HashSet<>();
     //</editor-fold>
 
     //<editor-fold desc="Constructors">
     public Partner() {
-
-
     }
 
-    public Partner(User user, String partner_description) {
+    public Partner(@Size(max = 250) String institution_name, String partner_description, String partner_website_url, int account_id) {
+        this.institution_name = institution_name;
         this.partner_description = partner_description;
-        this.user = user;
+        this.partner_website_url = partner_website_url;
+        this.account_id = account_id;
+
+        this.date_last_updated = new Date();
     }
 
     //</editor-fold>
@@ -155,6 +152,20 @@ public class Partner  implements IBaseEntity {
         return last_updated_by;
     }
 
+    public void addAgreements(Agreement agreement, Address address) {
+        PartnersAgreementsAddresses partnersAgreementsAddresses = new PartnersAgreementsAddresses(this,agreement,address,this.account_id);
+        agreements.add(partnersAgreementsAddresses);
+        agreement.getPartners().add(partnersAgreementsAddresses);
+        address.getPartnerAgreements().add(partnersAgreementsAddresses);
+    }
+
+    public void addExternalConctacts(ExternalContact externalContact, Address address) {
+        AddresesExternalContacts addresesExternalContacts = new AddresesExternalContacts(this,externalContact,address, this.account_id);
+        contacts.add(addresesExternalContacts);
+        externalContact.getAddreses().add(addresesExternalContacts);
+        address.getContacts().add(addresesExternalContacts);
+    }
+
     public void setLast_updated_by(User last_updated_by) {
         this.last_updated_by = last_updated_by;
     }
@@ -199,9 +210,6 @@ public class Partner  implements IBaseEntity {
         this.account_id = account_id;
     }
 
-    public Set<PartnersAgreementsAddresses> getAgreements() {
-        return agreements;
-    }
 
     public Set<PartnerAddresses> getAddresses() {
         return addresses;
