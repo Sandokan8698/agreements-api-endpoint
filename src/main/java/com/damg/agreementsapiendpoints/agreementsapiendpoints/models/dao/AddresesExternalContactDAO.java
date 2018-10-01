@@ -4,6 +4,5 @@ import com.damg.agreementsapiendpoints.agreementsapiendpoints.models.entities.Ad
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-
 public interface AddresesExternalContactDAO extends JpaRepository<AddresesExternalContacts, Long> {
 }
