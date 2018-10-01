@@ -20,6 +20,7 @@ public class PartnerQueryBuilder  {
     private String sql_where_partner_id = "";
 
 
+
     private void checkForAgreemenTypeId()  {
         if(this.filter.getAgreement_type_id() > 0) {
            this.sql_where_agreement_type_id = "AND agr_xref.agreement_type_id IN(" + this.filter.getAgreement_type_id() + ")";
